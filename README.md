@@ -21,9 +21,10 @@ This plugin adds a widget that allows publishers, developers, etc to add a custo
 **Version 1.0**   
 
 - Allow 5 individuals for the spotlight.  
-- Randomly choose one of them to show on the page.  
+- Randomly choose one of them to show on the page. 
 - Allow users to choose customed color for border and title background.  
 
-**Version 1.1**
+**Version 1.1** 
+
 - Add responsive design to the widget.
 - Improve overall look of the widget.  
