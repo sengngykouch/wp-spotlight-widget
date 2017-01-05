@@ -3,7 +3,7 @@
  * Plugin Name: WP Spotlight Widget
  * Plugin URI: http://wcsu.edu/
  * Description: Widget for spotlight images and texts
- * Version: 1.0.0
+ * Version: 1.1
  * Author: Sengngy Kouch
  * Author URI: http://wcsu.edu/
  * License: GPL2
@@ -36,6 +36,8 @@ class wp_spotlight_widget extends WP_Widget {
 		$max_spotlight = ( ! empty( $instance['max_spotlight'] ) ) ? absint( $instance['max_spotlight'] ) : 1;
 		if ( ! $max_spotlight ) //default number of spotlight.
 			$max_spotlight = 1;
+
+		$title_background_color = ! empty( $instance['title_background_color'] ) ? $instance['title_background_color'] : '4678a1'; //4678a1 is a default color
 
 		/**============== Spotlight 1 =========================*/
 		$spotlight_image_link1 = ! empty( $instance['spotlight_image_link1'] ) ? $instance['spotlight_image_link1'] : '';
@@ -113,26 +115,29 @@ class wp_spotlight_widget extends WP_Widget {
 		<!-- Display on the webpage-->
 		<div class="spotlight-wrapper">
 			<p class="spotlight-title"><?php echo $title; ?></p>
-			<div>
-				<p class="spotlight-content"><a href="<?php echo $spotlight_linkR; ?>">
-					<img src="<?php echo $spotlight_image_linkR; ?>" alt="" max-width="180" ></a>
-					<br/>
-					<br><?php echo $spotlight_nameR; ?><br>
+			<div class="spotlight-content"><a href="<?php echo $spotlight_linkR; ?>">
+				<img class="spotlight-img" src="<?php echo $spotlight_image_linkR; ?>" ></a>
+				<p class="spotlight-paragraph">
+					<br><strong><?php echo $spotlight_nameR; ?></strong><br>
 					<em><?php echo $spotlight_descriptionR; ?></em><br>
-					<a href="<?php echo $spotlight_linkR; ?>">Learn more ...</a></p>
-			</div>
+				<div style="text-align:center">
+					<a class="spotlight-btn-theme" href="<?php echo $spotlight_linkR; ?>">Learn more</a>
+				</div>​ 
+				</p>
+		</div>
 		</div>
 
 		<!-- Style sheet for this display on the webpage-->
-		<style>
+		<style>           
+
 			.spotlight-wrapper{
-				border: 1px solid #4678a1;
-				width:90%;
+				border: 1px solid #<?php echo $title_background_color; ?>;
+				width: 100%;
 			}
 
 			.spotlight-title{
-				background-color:#4678a1;
-				padding:  5px 10px;
+				background-color:#<?php echo $title_background_color; ?>;
+				padding: 7px 10px;
 				color:white;
 				text-align: center;
 				font-weight: bold;
@@ -140,15 +145,96 @@ class wp_spotlight_widget extends WP_Widget {
 
 			.spotlight-content{
 				margin:auto;
-				max-width: 180px;
-				padding-top: 15px;
-				padding-bottom: 20px;
+				width: 90%;
+				padding-top: 15px;                
 			}
+
+			.spotlight-img{
+				width:100%;
+			}
+
+			.spotlight-paragraph{
+				text-align:center;
+				font-size:1.1em;				
+			}			
+
+			.spotlight-btn-theme {
+				background: #<?php echo $title_background_color; ?>;				
+				color: #fff;
+				user-select: none;
+				background-image: none;							
+				border-radius: 0;				
+				background-clip: padding-box;
+				display: inline-block;
+				padding: 6px 12px;
+				margin-bottom: 0;
+				font-size: 14px;		
+				font-weight: normal;
+				line-height: 1.42857143;
+				text-align: center;
+				white-space: nowrap;
+				vertical-align: middle;
+				cursor: pointer;
+				-webkit-transition: all 0.1s ease-in-out;
+				-moz-transition: all 0.1s ease-in-out;
+				-ms-transition: all 0.1s ease-in-out;
+				-o-transition: all 0.1s ease-in-out;
+				-webkit-border-radius: 0;
+				-moz-border-radius: 0;
+				-ms-border-radius: 0;
+				-o-border-radius: 0;
+				-moz-background-clip: padding;
+				-webkit-background-clip: padding-box;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;						
+			}			
+
+			.spotlight-btn-theme,
+			.spotlight-btn-theme:visited, 
+			.spotlight-btn-theme:hover, 
+			.spotlight-btn-theme:active{ 
+				text-decoration: none;
+			} 			
+
+			@media only screen and (min-width: 768px){
+				.spotlight-wrapper{
+					border: 1px solid #<?php echo $title_background_color; ?>;
+					width:90%;
+				}				
+
+				.spotlight-content{
+					margin:auto;
+					width: 80%;
+					padding-top: 15px;				
+				}
+
+				.spotlight-img{
+					max-width:180px;
+				}
+
+				.spotlight-paragraph{
+					text-align:left;
+					font-size:1em;				
+				}
+			}			
+
+			@media only screen and (min-width: 1200px){					
+				.spotlight-content{
+					margin:auto;
+					width: 200px;
+					padding-top: 15px;				
+				}
+
+				.spotlight-img{
+					max-width:200px;
+				}				
+			}
+
 		</style>
 <?php
 		echo $args['after_widget'];
 	}
-
 
 	/**
 	 * Outputs the options form on admin
@@ -157,7 +243,7 @@ class wp_spotlight_widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '',
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'title_background_color' => '',
 															'spotlight_image_link1' => '', 'spotlight_name1' => '', 'spotlight_description1' => '', 'spotlight_link1' => '',
 															'spotlight_image_link2' => '', 'spotlight_name2' => '', 'spotlight_description2' => '', 'spotlight_link2' => '',
 															'spotlight_image_link3' => '', 'spotlight_name3' => '', 'spotlight_description3' => '', 'spotlight_link3' => '',
@@ -167,6 +253,7 @@ class wp_spotlight_widget extends WP_Widget {
 
 		$title = sanitize_text_field( $instance['title'] );
 		$max_spotlight  = isset( $instance['max_spotlight'] ) ? absint( $instance['max_spotlight'] ) : 1;
+		$title_background_color = sanitize_text_field( $instance['title_background_color'] );
 
 		/**================== Spotlight 1 ==============*/
 		$spotlight_image_link1 = $instance['spotlight_image_link1'];
@@ -196,7 +283,7 @@ class wp_spotlight_widget extends WP_Widget {
 		$spotlight_image_link5 = $instance['spotlight_image_link5'];
 		$spotlight_name5 = $instance['spotlight_name5'];
 		$spotlight_description5 = $instance['spotlight_description5'];
-		$spotlight_link5 = $instance['spotlight_link5'];
+		$spotlight_link5 = $instance['spotlight_link5'];		
 
 		$num = 1; //start spotlight from 1 to N.
 ?>
@@ -204,9 +291,10 @@ class wp_spotlight_widget extends WP_Widget {
 		<style>
 			.spotlight-para{
 				text-align:center !important;
-				font-weight: bold;
+				font-weight: 500;
 			}
 		</style>
+
 
 		<p>  <!-- Show Spotlight title -->
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title for the spot light:', 'text_domain' ); ?></label>
@@ -219,20 +307,34 @@ class wp_spotlight_widget extends WP_Widget {
 				   />
 		</p>
 
+		<p>  <!-- title background color -->
+			<label for="<?php echo $this->get_field_id( 'title_background_color' ); ?>"><?php _e( 'Title\'s background color:' ); ?></label>
+			<input
+				   class="widefat"
+				   id="<?php echo $this->get_field_id( 'title_background_color' ); ?>"
+				   name="<?php echo $this->get_field_name( 'title_background_color' ); ?>"
+				   type="text"                
+				   value="<?php echo esc_attr($title_background_color); ?>"
+				   />
+			<label for="<?php echo $this->get_field_id( 'max_spotlight' ); ?>"><?php _e( '( Eg: 2beffa, or ff00ff. Leave it empty for default color )' ); ?></label>
+		</p>
+
 		<p>  <!-- selector for numbers of spotlight to show -->
-			<label for="<?php echo $this->get_field_id( 'max_spotlight' ); ?>"><?php _e( 'Number of spotlights to show :' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'max_spotlight' ); ?>"><?php _e( 'Number of spotlights to show:' ); ?></label>
 			<input
 				   class="tiny-text"
 				   id="<?php echo $this->get_field_id( 'max_spotlight' ); ?>"
 				   name="<?php echo $this->get_field_name( 'max_spotlight' ); ?>"
-				   type="number" step="1" min="1" max="5" value="<?php echo $max_spotlight; ?>"
-				   size="3"
+				   type="number" step="1" min="1" max="5" value="<?php if ($max_spotlight > 5) //prevent overflow.
+					$max_spotlight = 5;
+				echo $max_spotlight; ?>"
+				   size="1"
 				   />
 			<label for="<?php echo $this->get_field_id( 'max_spotlight' ); ?>"><?php _e( '( Maximum of 5 )' ); ?></label>
-		</p>
-<?php
-		if ($max_spotlight > 5) //prevent overflow.
-			$max_spotlight = 5;
+		</p> <p>&nbsp;</p><hr/>
+		<p class="spotlight-para">***All fields below are requried***</p>
+
+<?php        
 		//Display Spotlight input on the Widget Form from 1st Spotlight to max_spotlight, inclusive.
 		while ($num <= $max_spotlight) {
 ?>
@@ -266,9 +368,7 @@ class wp_spotlight_widget extends WP_Widget {
 						  class="widefat"
 						  rows="2" cols="20"
 						  id="<?php echo $this->get_field_id($tempDescription); ?>"
-						  name="<?php echo $this->get_field_name($tempDescription); ?>">
-					<?php echo esc_textarea( $instance[$tempDescription] ); ?>
-				</textarea>
+						  name="<?php echo $this->get_field_name($tempDescription); ?>"><?php echo esc_textarea( $instance[$tempDescription] ); ?> </textarea>
 			</p>
 			<!-- Link input -->
 			<p> <?php $tempLink = 'spotlight_link' . $num; ?>
@@ -297,36 +397,54 @@ class wp_spotlight_widget extends WP_Widget {
 		$instance = $old_instance;
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['max_spotlight'] = (int) $new_instance['max_spotlight'];
+		$instance['title_background_color'] = sanitize_text_field ($new_instance['title_background_color']);
 
-		/**=============== Spotlight 1 ===================*/
-		$instance['spotlight_image_link1'] = sanitize_text_field( $new_instance['spotlight_image_link1'] );
-		$instance['spotlight_name1'] = sanitize_text_field( $new_instance['spotlight_name1'] );
-		$instance['spotlight_description1'] = sanitize_text_field( $new_instance['spotlight_description1'] );
-		$instance['spotlight_link1'] = sanitize_text_field( $new_instance['spotlight_link1'] );
+		///**=============== Spotlight 1 ===================*/
+		//        $instance['spotlight_image_link1'] = sanitize_text_field( $new_instance['spotlight_image_link1'] );
+		//        $instance['spotlight_name1'] = sanitize_text_field( $new_instance['spotlight_name1'] );
+		//        $instance['spotlight_description1'] = sanitize_text_field( $new_instance['spotlight_description1'] );
+		//        $instance['spotlight_link1'] = sanitize_text_field( $new_instance['spotlight_link1'] );
+		//
+		//        /**=============== Spotlight 2 ===================*/
+		//        $instance['spotlight_image_link2'] = sanitize_text_field( $new_instance['spotlight_image_link2'] );
+		//        $instance['spotlight_name2'] = sanitize_text_field( $new_instance['spotlight_name2'] );
+		//        $instance['spotlight_description2'] = sanitize_text_field( $new_instance['spotlight_description2'] );
+		//        $instance['spotlight_link2'] = sanitize_text_field( $new_instance['spotlight_link2'] );
+		//
+		//        /**============== Spotlight 3 ====================*/
+		//        $instance['spotlight_image_link3'] = sanitize_text_field( $new_instance['spotlight_image_link3'] );
+		//        $instance['spotlight_name3'] = sanitize_text_field( $new_instance['spotlight_name3'] );
+		//        $instance['spotlight_description3'] = sanitize_text_field( $new_instance['spotlight_description3'] );
+		//        $instance['spotlight_link3'] = sanitize_text_field( $new_instance['spotlight_link3'] );
+		//
+		//        /**============== Spotlight 4 ====================*/
+		//        $instance['spotlight_image_link4'] = sanitize_text_field( $new_instance['spotlight_image_link4'] );
+		//        $instance['spotlight_name4'] = sanitize_text_field( $new_instance['spotlight_name4'] );
+		//        $instance['spotlight_description4'] = sanitize_text_field( $new_instance['spotlight_description4'] );
+		//        $instance['spotlight_link4'] = sanitize_text_field( $new_instance['spotlight_link4'] );
+		//
+		//        /**============== Spotlight 5 ====================*/
+		//        $instance['spotlight_image_link5'] = sanitize_text_field( $new_instance['spotlight_image_link5'] );
+		//        $instance['spotlight_name5'] = sanitize_text_field( $new_instance['spotlight_name5'] );
+		//        $instance['spotlight_description5'] = sanitize_text_field( $new_instance['spotlight_description5'] );
+		//        $instance['spotlight_link5'] = sanitize_text_field( $new_instance['spotlight_link5'] );
 
-		/**=============== Spotlight 2 ===================*/
-		$instance['spotlight_image_link2'] = sanitize_text_field( $new_instance['spotlight_image_link2'] );
-		$instance['spotlight_name2'] = sanitize_text_field( $new_instance['spotlight_name2'] );
-		$instance['spotlight_description2'] = sanitize_text_field( $new_instance['spotlight_description2'] );
-		$instance['spotlight_link2'] = sanitize_text_field( $new_instance['spotlight_link2'] );
+		//**Same as above commented out code, but more elegant, yet it can be difficult to read.**
+		$increment = 1;		
+		while ( $increment <= 5 ){			
+			//increment variables
+			$increment_image_link = 'spotlight_image_link' . $increment;
+			$increment_description = 'spotlight_description' . $increment;
+			$increment_name = 'spotlight_name' . $increment;
+			$increment_link = 'spotlight_link' . $increment;
 
-		/**============== Spotlight 3 ====================*/
-		$instance['spotlight_image_link3'] = sanitize_text_field( $new_instance['spotlight_image_link3'] );
-		$instance['spotlight_name3'] = sanitize_text_field( $new_instance['spotlight_name3'] );
-		$instance['spotlight_description3'] = sanitize_text_field( $new_instance['spotlight_description3'] );
-		$instance['spotlight_link3'] = sanitize_text_field( $new_instance['spotlight_link3'] );
+			$instance[$increment_image_link] = sanitize_text_field( $new_instance[$increment_image_link] );
+			$instance[$increment_name] = sanitize_text_field( $new_instance[$increment_name] );
+			$instance[$increment_description] = sanitize_text_field( $new_instance[$increment_description] );
+			$instance[$increment_link] = sanitize_text_field( $new_instance[$increment_link] );
 
-		/**============== Spotlight 4 ====================*/
-		$instance['spotlight_image_link4'] = sanitize_text_field( $new_instance['spotlight_image_link4'] );
-		$instance['spotlight_name4'] = sanitize_text_field( $new_instance['spotlight_name4'] );
-		$instance['spotlight_description4'] = sanitize_text_field( $new_instance['spotlight_description4'] );
-		$instance['spotlight_link4'] = sanitize_text_field( $new_instance['spotlight_link4'] );
-
-		/**============== Spotlight 5 ====================*/
-		$instance['spotlight_image_link5'] = sanitize_text_field( $new_instance['spotlight_image_link5'] );
-		$instance['spotlight_name5'] = sanitize_text_field( $new_instance['spotlight_name5'] );
-		$instance['spotlight_description5'] = sanitize_text_field( $new_instance['spotlight_description5'] );
-		$instance['spotlight_link5'] = sanitize_text_field( $new_instance['spotlight_link5'] );
+			$increment++;
+		}
 
 		return $instance;
 	}
