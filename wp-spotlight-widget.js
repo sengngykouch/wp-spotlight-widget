@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
 
 
 		// Call this from the upload button to initiate the upload frame.
-		uploader : function( widget_id, widget_id_string, image_link_id) {
+		uploader : function( widget_id, widget_id_string, image_link_id, image_preview_id ) {
       var frame = wp.media({
         title : 'Choose an image for link',
         multiple : false,
@@ -17,7 +17,7 @@ jQuery(document).ready(function($){
 			// Handle results from media manager.
 			frame.on('close',function( ) {
 				var attachments = frame.state().get('selection').toJSON();
-				imageWidget.render( widget_id, widget_id_string, image_link_id, attachments[0] );
+				imageWidget.render( widget_id, widget_id_string, image_link_id, image_preview_id, attachments[0] );
 			});
 
 			frame.open();
@@ -25,14 +25,30 @@ jQuery(document).ready(function($){
 		},
 
 		// Output Image preview and populate widget form.
-		render : function( widget_id, widget_id_string, image_link_id, attachment ) {
+		render : function( widget_id, widget_id_string, image_link_id, image_preview_id, attachment ) {
 
 
       $("#" + widget_id_string + image_link_id).val(attachment.url);
-      $("#my_image").attr("src",attachment.url);
-      // alert(image_link_id);
+
+			$("#" + widget_id_string + image_preview_id).html(imageWidget.imgHTML(attachment));
+
+
+
+
 
 		},
+
+		// Render html for the image.
+		imgHTML : function( attachment ) {
+			var img_html = '<img src="' + attachment.url + '" ';
+			img_html += 'width="50px" ';
+
+			if ( attachment.alt != '' ) {
+				img_html += 'alt="' + attachment.alt + '" ';
+			}
+			img_html += '/>';
+			return img_html;
+		}
 
 	};
 

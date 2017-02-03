@@ -42,6 +42,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**============== Spotlight 1 =========================*/
         $spotlight_image_link1 = ! empty( $instance['spotlight_image_link1'] ) ? $instance['spotlight_image_link1'] : '';
         $spotlight_add_image1 = ! empty( $instance['spotlight_add_image1'] ) ? $instance['spotlight_add_image1'] : '';
+				$spotlight_image_preview1 = ! empty( $instance['spotlight_image_preview1'] ) ? $instance['spotlight_image_preview1'] : '';
         $spotlight_name1 = ! empty( $instance['spotlight_name1'] ) ? $instance['spotlight_name1'] : '';
         $spotlight_description1 = ! empty( $instance['spotlight_description1'] ) ? $instance['spotlight_description1'] : '';
         $spotlight_link1 = ! empty( $instance['spotlight_link1'] ) ? $instance['spotlight_link1'] : '';
@@ -49,6 +50,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**============== Spotlight 2 =========================*/
         $spotlight_image_link2 = ! empty( $instance['spotlight_image_link2'] ) ? $instance['spotlight_image_link2'] : '';
         $spotlight_add_image2 = ! empty( $instance['spotlight_add_image2'] ) ? $instance['spotlight_add_image2'] : '';
+				$spotlight_image_preview2 = ! empty( $instance['spotlight_image_preview2'] ) ? $instance['spotlight_image_preview2'] : '';
         $spotlight_name2 = ! empty( $instance['spotlight_name2'] ) ? $instance['spotlight_name2'] : '';
         $spotlight_description2 = ! empty( $instance['spotlight_description2'] ) ? $instance['spotlight_description2'] : '';
         $spotlight_link2 = ! empty( $instance['spotlight_link2'] ) ? $instance['spotlight_link2'] : '';
@@ -56,6 +58,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**============== Spotlight 3 =========================*/
         $spotlight_image_link3 = ! empty( $instance['spotlight_image_link3'] ) ? $instance['spotlight_image_link3'] : '';
         $spotlight_add_image3 = ! empty( $instance['spotlight_add_image3'] ) ? $instance['spotlight_add_image3'] : '';
+				$spotlight_image_preview3 = ! empty( $instance['spotlight_image_preview3'] ) ? $instance['spotlight_image_preview3'] : '';
         $spotlight_name3 = ! empty( $instance['spotlight_name3'] ) ? $instance['spotlight_name3'] : '';
         $spotlight_description3 = ! empty( $instance['spotlight_description3'] ) ? $instance['spotlight_description3'] : '';
         $spotlight_link3 = ! empty( $instance['spotlight_link3'] ) ? $instance['spotlight_link3'] : '';
@@ -63,13 +66,15 @@ class wp_spotlight_widget extends WP_Widget {
         /**============== Spotlight 4 =========================*/
         $spotlight_image_link4 = ! empty( $instance['spotlight_image_link4'] ) ? $instance['spotlight_image_link4'] : '';
         $spotlight_add_image4 = ! empty( $instance['spotlight_add_image4'] ) ? $instance['spotlight_add_image4'] : '';
+				$spotlight_image_preview4 = ! empty( $instance['spotlight_image_preview4'] ) ? $instance['spotlight_image_preview4'] : '';
         $spotlight_name4 = ! empty( $instance['spotlight_name4'] ) ? $instance['spotlight_name4'] : '';
-        $spotlight_descriptio4n = ! empty( $instance['spotlight_description4'] ) ? $instance['spotlight_description4'] : '';
+        $spotlight_description4 = ! empty( $instance['spotlight_description4'] ) ? $instance['spotlight_description4'] : '';
         $spotlight_link4 = ! empty( $instance['spotlight_link4'] ) ? $instance['spotlight_link4'] : '';
 
         /**============== Spotlight 5 =========================*/
         $spotlight_image_link5 = ! empty( $instance['spotlight_image_link5'] ) ? $instance['spotlight_image_link5'] : '';
         $spotlight_add_image5 = ! empty( $instance['spotlight_add_image5'] ) ? $instance['spotlight_add_image5'] : '';
+				$spotlight_image_preview5 = ! empty( $instance['spotlight_image_preview5'] ) ? $instance['spotlight_image_preview5'] : '';
         $spotlight_name5 = ! empty( $instance['spotlight_name5'] ) ? $instance['spotlight_name5'] : '';
         $spotlight_description5 = ! empty( $instance['spotlight_description5'] ) ? $instance['spotlight_description5'] : '';
         $spotlight_link5 = ! empty( $instance['spotlight_link5'] ) ? $instance['spotlight_link5'] : '';
@@ -81,7 +86,6 @@ class wp_spotlight_widget extends WP_Widget {
         $spotlight_nameR;
         $spotlight_descriptionR;
         $spotlight_linkR;
-        //$spotlight_add_imageR;
         //Randomly pick one of the spotlight individual 1 to 5, inclusive.
         $random_spotlight = rand(1,$max_spotlight);
 
@@ -91,35 +95,30 @@ class wp_spotlight_widget extends WP_Widget {
                 $spotlight_linkR = $spotlight_link1;
                 $spotlight_nameR = $spotlight_name1;
                 $spotlight_descriptionR = $spotlight_description1;
-                //$spotlight_add_imageR = $spotlight_add_image1;
                 break;
             case 2:
                 $spotlight_image_linkR = $spotlight_image_link2;
                 $spotlight_linkR = $spotlight_link2;
                 $spotlight_nameR = $spotlight_name2;
                 $spotlight_descriptionR = $spotlight_description2;
-                //$spotlight_add_imageR = $spotlight_add_image2;
                 break;
             case 3:
                 $spotlight_image_linkR = $spotlight_image_link3;
                 $spotlight_linkR = $spotlight_link3;
                 $spotlight_nameR = $spotlight_name3;
                 $spotlight_descriptionR = $spotlight_description3;
-                //$spotlight_add_imageR = $spotlight_add_image3;
                 break;
             case 4:
                 $spotlight_image_linkR = $spotlight_image_link4;
                 $spotlight_linkR = $spotlight_link4;
                 $spotlight_nameR = $spotlight_name4;
                 $spotlight_descriptionR = $spotlight_description4;
-                //$spotlight_add_imageR = $spotlight_add_image4;
                 break;
             case 5:
                 $spotlight_image_linkR = $spotlight_image_link5;
                 $spotlight_linkR = $spotlight_link5;
                 $spotlight_nameR = $spotlight_name5;
                 $spotlight_descriptionR = $spotlight_description5;
-                //$spotlight_add_imageR = $spotlight_add_image5;
                 break;
         }
 ?>
@@ -212,7 +211,7 @@ class wp_spotlight_widget extends WP_Widget {
 				.spotlight-wrapper{
 					border: 1px solid #<?php echo $title_background_color; ?>;
 					width:90%;
-            	}
+        }
 
 				.spotlight-content{
 					margin:auto;
@@ -255,11 +254,11 @@ class wp_spotlight_widget extends WP_Widget {
     public function form( $instance ) {
         // outputs the options form on admin
         $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'title_background_color' => '',
-                                                            'spotlight_image_link1' => '', 'spotlight_add_image1' => '', 'spotlight_name1' => '', 'spotlight_description1' => '', 'spotlight_link1' => '',
-                                                            'spotlight_image_link2' => '', 'spotlight_add_image2' => '', 'spotlight_name2' => '', 'spotlight_description2' => '', 'spotlight_link2' => '',
-                                                            'spotlight_image_link3' => '', 'spotlight_add_image3' => '', 'spotlight_name3' => '', 'spotlight_description3' => '', 'spotlight_link3' => '',
-                                                            'spotlight_image_link4' => '', 'spotlight_add_image4' => '' ,'spotlight_name4' => '', 'spotlight_description4' => '', 'spotlight_link4' => '',
-                                                            'spotlight_image_link5' => '', 'spotlight_add_image5' => '' ,'spotlight_name5' => '', 'spotlight_description5' => '', 'spotlight_link5' => '',
+                                                            'spotlight_image_link1' => '', 'spotlight_add_image1' => '', 'spotlight_image_preview1' => '', 'spotlight_name1' => '', 'spotlight_description1' => '', 'spotlight_link1' => '',
+                                                            'spotlight_image_link2' => '', 'spotlight_add_image2' => '', 'spotlight_image_preview2' => '', 'spotlight_name2' => '', 'spotlight_description2' => '', 'spotlight_link2' => '',
+                                                            'spotlight_image_link3' => '', 'spotlight_add_image3' => '', 'spotlight_image_preview3' => '', 'spotlight_name3' => '', 'spotlight_description3' => '', 'spotlight_link3' => '',
+                                                            'spotlight_image_link4' => '', 'spotlight_add_image4' => '', 'spotlight_image_preview4' => '', 'spotlight_name4' => '', 'spotlight_description4' => '', 'spotlight_link4' => '',
+                                                            'spotlight_image_link5' => '', 'spotlight_add_image5' => '', 'spotlight_image_preview5' => '', 'spotlight_name5' => '', 'spotlight_description5' => '', 'spotlight_link5' => '',
                                                             'text' => '' ) );
 
         $title = sanitize_text_field( $instance['title'] );
@@ -269,6 +268,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**================== Spotlight 1 ==============*/
         $spotlight_image_link1 = $instance['spotlight_image_link1'];
         $spotlight_add_image1 = $instance['spotlight_add_image1'];
+				$spotlight_image_preview1 = $instance['spotlight_image_preview1'];
         $spotlight_name1 = $instance['spotlight_name1'];
         $spotlight_description1 = $instance['spotlight_description1'];
         $spotlight_link1 = $instance['spotlight_link1'];
@@ -276,6 +276,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**================== Spotlight 2 ==============*/
         $spotlight_image_link2 = $instance['spotlight_image_link2'];
         $spotlight_add_image2 = $instance['spotlight_add_image2'];
+				$spotlight_image_preview2 = $instance['spotlight_image_preview2'];
         $spotlight_name2 = $instance['spotlight_name2'];
         $spotlight_description2 = $instance['spotlight_description2'];
         $spotlight_link2 = $instance['spotlight_link2'];
@@ -283,6 +284,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**================== Spotlight 3 ==============*/
         $spotlight_image_link3 = $instance['spotlight_image_link3'];
         $spotlight_add_image3 = $instance['spotlight_add_image3'];
+				$spotlight_image_preview3 = $instance['spotlight_image_preview3'];
         $spotlight_name3 = $instance['spotlight_name3'];
         $spotlight_description3 = $instance['spotlight_description3'];
         $spotlight_link3 = $instance['spotlight_link3'];
@@ -290,6 +292,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**================== Spotlight 4 ==============*/
         $spotlight_image_link4 = $instance['spotlight_image_link4'];
         $spotlight_add_image4 = $instance['spotlight_add_image4'];
+				$spotlight_image_preview4 = $instance['spotlight_image_preview4'];
         $spotlight_name4 = $instance['spotlight_name4'];
         $spotlight_description4 = $instance['spotlight_description4'];
         $spotlight_link4 = $instance['spotlight_link4'];
@@ -297,6 +300,7 @@ class wp_spotlight_widget extends WP_Widget {
         /**================== Spotlight 5 ==============*/
         $spotlight_image_link5 = $instance['spotlight_image_link5'];
         $spotlight_add_image5 = $instance['spotlight_add_image5'];
+				$spotlight_image_preview5 = $instance['spotlight_image_preview5'];
         $spotlight_name5 = $instance['spotlight_name5'];
         $spotlight_description5 = $instance['spotlight_description5'];
         $spotlight_link5 = $instance['spotlight_link5'];
@@ -310,7 +314,6 @@ class wp_spotlight_widget extends WP_Widget {
                 font-weight: 500;
             }
         </style>
-
 
             <p>  <!-- Show Spotlight title -->
                 <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title for the spot light:', 'text_domain' ); ?></label>
@@ -350,26 +353,9 @@ class wp_spotlight_widget extends WP_Widget {
             </p> <p>&nbsp;</p><hr/>
             <p class="spotlight-para">***All fields below are requried***</p>
 
-
-
-            <!-- ============= Working Here ============== -->
-
-            <!-- <div id="metabox_wrapper">
-              <input type="text" id="input-link" value="i" />
-              <img id="image-tag" />
-              <input type="hidden" id="image-hidden-field" name="custom_image_data" />
-
-              <input type="button" id="image-delete-button" class="button" value="Delete Image" />
-            </div> -->
-
-
-
-<!-- //onclick="imageWidget.uploader( 'image-add-button', 'image-add-button' ); return false;" -->
-
-
-
 <?php
-        $id_prefix = $this->get_field_id('');
+        $id_prefix = $this->get_field_id(''); //get the prefix of the element.
+
         //Display Spotlight input on the Widget Form from 1st Spotlight to max_spotlight, inclusive.
         while ($num <= $max_spotlight) {
 ?>
@@ -385,14 +371,18 @@ class wp_spotlight_widget extends WP_Widget {
                        value="<?php echo esc_attr($$tempImage); ?>"
                        />
             </p>
+						<?php $tempImagePreview = 'spotlight_image_preview' . $num;?>
+						<div id="<?php echo $this->get_field_id($tempImagePreview)?>">
+							<img  src="<?php echo esc_attr($$tempImage); ?>" width="50px" />
+						</div>
 
-            <img  src="<?php echo esc_attr($$tempImage); ?>" width="50px" />
-
-
-            <?php $tempAddImage = 'spotlight_add_image' . $num; ?>
-            <input type="button" id="<?php echo $this->get_field_id($tempAddImage); ?>" class="button" value="Add Image Link" onclick="imageWidget.uploader( '<?php echo $this->id;?>', '<?php echo $id_prefix;?>', '<?php echo $tempImage;?>' ); return false;"/>
-
-
+						<!-- Add Image Button -->
+            <?php $tempAddImage = 'spotlight_add_image' . $num; ?><!-- store the combined name. -->
+            <input
+										class="button"
+										type="button"
+										id="<?php echo $this->get_field_id($tempAddImage); ?>"
+										value="Add Image Link" onclick="imageWidget.uploader( '<?php echo $this->id;?>', '<?php echo $id_prefix;?>', '<?php echo $tempImage;?>' ,'<?php echo $tempImagePreview; ?>'); return false;"/>
             <!-- Name input -->
             <p> <?php $tempName = 'spotlight_name' . $num; ?>
                 <label for="<?php echo esc_attr( $this->get_field_id( $tempName ) ); ?>"><?php esc_attr_e( 'Person full name:', 'text_domain' ); ?></label>
@@ -437,62 +427,31 @@ class wp_spotlight_widget extends WP_Widget {
 	 */
     public function update( $new_instance, $old_instance ) {
 
-        $instance = $old_instance;
-        $instance['title'] = sanitize_text_field( $new_instance['title'] );
-        $instance['max_spotlight'] = (int) $new_instance['max_spotlight'];
-		    $instance['title_background_color'] = sanitize_text_field ($new_instance['title_background_color']);
+      $instance = $old_instance;
+      $instance['title'] = sanitize_text_field( $new_instance['title'] );
+      $instance['max_spotlight'] = (int) $new_instance['max_spotlight'];
+	    $instance['title_background_color'] = sanitize_text_field ($new_instance['title_background_color']);
 
+			$increment = 1;
+			while ( $increment <= 5 ){
+				//increment variables
+				$increment_image_link = 'spotlight_image_link' . $increment;
+	      $increment_add_image = 'spotlight_add_image' . $increment;
+				$increment_image_preview = 'spotlight_image_preview' . $increment;
+				$increment_description = 'spotlight_description' . $increment;
+				$increment_name = 'spotlight_name' . $increment;
+				$increment_link = 'spotlight_link' . $increment;
 
-		 ///**=============== Spotlight 1 ===================*/
-//        $instance['spotlight_image_link1'] = sanitize_text_field( $new_instance['spotlight_image_link1'] );
-//        $instance['spotlight_name1'] = sanitize_text_field( $new_instance['spotlight_name1'] );
-//        $instance['spotlight_description1'] = sanitize_text_field( $new_instance['spotlight_description1'] );
-//        $instance['spotlight_link1'] = sanitize_text_field( $new_instance['spotlight_link1'] );
-//
-//        /**=============== Spotlight 2 ===================*/
-//        $instance['spotlight_image_link2'] = sanitize_text_field( $new_instance['spotlight_image_link2'] );
-//        $instance['spotlight_name2'] = sanitize_text_field( $new_instance['spotlight_name2'] );
-//        $instance['spotlight_description2'] = sanitize_text_field( $new_instance['spotlight_description2'] );
-//        $instance['spotlight_link2'] = sanitize_text_field( $new_instance['spotlight_link2'] );
-//
-//        /**============== Spotlight 3 ====================*/
-//        $instance['spotlight_image_link3'] = sanitize_text_field( $new_instance['spotlight_image_link3'] );
-//        $instance['spotlight_name3'] = sanitize_text_field( $new_instance['spotlight_name3'] );
-//        $instance['spotlight_description3'] = sanitize_text_field( $new_instance['spotlight_description3'] );
-//        $instance['spotlight_link3'] = sanitize_text_field( $new_instance['spotlight_link3'] );
-//
-//        /**============== Spotlight 4 ====================*/
-//        $instance['spotlight_image_link4'] = sanitize_text_field( $new_instance['spotlight_image_link4'] );
-//        $instance['spotlight_name4'] = sanitize_text_field( $new_instance['spotlight_name4'] );
-//        $instance['spotlight_description4'] = sanitize_text_field( $new_instance['spotlight_description4'] );
-//        $instance['spotlight_link4'] = sanitize_text_field( $new_instance['spotlight_link4'] );
-//
-//        /**============== Spotlight 5 ====================*/
-//        $instance['spotlight_image_link5'] = sanitize_text_field( $new_instance['spotlight_image_link5'] );
-//        $instance['spotlight_name5'] = sanitize_text_field( $new_instance['spotlight_name5'] );
-//        $instance['spotlight_description5'] = sanitize_text_field( $new_instance['spotlight_description5'] );
-//        $instance['spotlight_link5'] = sanitize_text_field( $new_instance['spotlight_link5'] );
+				$instance[$increment_image_link] = sanitize_text_field( $new_instance[$increment_image_link] );
+	      $instance[$increment_add_image] = sanitize_text_field( $new_instance[$increment_add_image] );
+				$instance[$increment_image_preview] = sanitize_text_field( $new_instance[$increment_image_preview]);
+				$instance[$increment_name] = sanitize_text_field( $new_instance[$increment_name] );
+				$instance[$increment_description] = sanitize_text_field( $new_instance[$increment_description] );
+				$instance[$increment_link] = sanitize_text_field( $new_instance[$increment_link] );
 
-		//**Same as above commented out code, but more elegant, yet it can be difficult to read.**
-		$increment = 1;
-		while ( $increment <= 5 ){
-			//increment variables
-			$increment_image_link = 'spotlight_image_link' . $increment;
-      $increment_add_image = 'spotlight_add_image' . $increment;
-			$increment_description = 'spotlight_description' . $increment;
-			$increment_name = 'spotlight_name' . $increment;
-			$increment_link = 'spotlight_link' . $increment;
-
-			$instance[$increment_image_link] = sanitize_text_field( $new_instance[$increment_image_link] );
-      $instance[$increment_add_image] = sanitize_text_field( $new_instance[$increment_add_image] );
-			$instance[$increment_name] = sanitize_text_field( $new_instance[$increment_name] );
-			$instance[$increment_description] = sanitize_text_field( $new_instance[$increment_description] );
-			$instance[$increment_link] = sanitize_text_field( $new_instance[$increment_link] );
-
-			$increment++;
-		}
-
-        return $instance;
+				$increment++;
+			}
+      return $instance;
     }
 }
 
@@ -501,8 +460,9 @@ add_action( 'widgets_init', function(){
     register_widget( 'wp_spotlight_widget' );
 });
 
+// register all script
 function register_admin_script(){
-  wp_enqueue_media();
+  wp_enqueue_media(); //requre for "Add media" button to work
   wp_enqueue_script('dwwp_image_uploader_js', plugin_dir_url(__FILE__). 'wp-spotlight-widget.js', array('jquery', 'media-upload'), '0.0.2', true );
   wp_localize_script('wwp_image_uploader_js', 'customUploads', array('imageDate' => get_post_meta(get_the_ID(), 'custom_image_data', true)));
 }
