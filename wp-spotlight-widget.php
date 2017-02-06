@@ -124,14 +124,14 @@ class wp_spotlight_widget extends WP_Widget {
 ?>
         <!-- Display on the webpage-->
         <div class="spotlight-wrapper">
-            <p class="spotlight-title"><?php echo $title; ?></p>
-            <div class="spotlight-content"><a href="<?php echo $spotlight_linkR; ?>">
-                    <img class="spotlight-img" src="<?php echo $spotlight_image_linkR; ?>" ></a>
+            <p class="spotlight-title"><?php echo esc_html($title); ?></p>
+            <div class="spotlight-content"><a href="<?php echo esc_url($spotlight_linkR); ?>">
+                    <img class="spotlight-img" src="<?php echo esc_url($spotlight_image_linkR); ?>" ></a>
                     <p class="spotlight-paragraph">
-                        <br><strong><?php echo $spotlight_nameR; ?></strong><br>
-                        <em><?php echo $spotlight_descriptionR; ?></em><br>
+                        <br><strong><?php echo esc_html($spotlight_nameR); ?></strong><br>
+                        <em><?php echo esc_html($spotlight_descriptionR); ?></em><br>
                         <div style="text-align:center">
- 							<a class="spotlight-btn-theme" href="<?php echo $spotlight_linkR; ?>">Learn more</a>
+ 							<a class="spotlight-btn-theme" href="<?php echo esc_url($spotlight_linkR); ?>">Learn more</a>
 						</div>​
 					</p>
             </div>
@@ -141,12 +141,12 @@ class wp_spotlight_widget extends WP_Widget {
         <style>
 
 			.spotlight-wrapper{
-					border: 1px solid #<?php echo $title_background_color; ?>;
+					border: 1px solid #<?php echo esc_html($title_background_color); ?>;
 					width: 100%;
             	}
 
             .spotlight-title{
-                background-color:#<?php echo $title_background_color; ?>;
+                background-color:#<?php echo esc_html($title_background_color); ?>;
                 padding: 7px 10px;
                 color:white;
                 text-align: center;
@@ -169,7 +169,7 @@ class wp_spotlight_widget extends WP_Widget {
 			}
 
 			.spotlight-btn-theme {
-				background: #<?php echo $title_background_color; ?>;
+				background: #<?php echo esc_html($title_background_color); ?>;
 				color: #fff;
 				user-select: none;
 				background-image: none;
@@ -209,7 +209,7 @@ class wp_spotlight_widget extends WP_Widget {
 
 			 @media only screen and (min-width: 768px){
 				.spotlight-wrapper{
-					border: 1px solid #<?php echo $title_background_color; ?>;
+					border: 1px solid #<?php echo esc_html($title_background_color); ?>;
 					width:90%;
         }
 
@@ -371,18 +371,24 @@ class wp_spotlight_widget extends WP_Widget {
                        value="<?php echo esc_attr($$tempImage); ?>"
                        />
             </p>
-						<?php $tempImagePreview = 'spotlight_image_preview' . $num;?>
-						<div id="<?php echo $this->get_field_id($tempImagePreview)?>">
-							<img  src="<?php echo esc_attr($$tempImage); ?>" width="50px" />
-						</div>
 
-						<!-- Add Image Button -->
-            <?php $tempAddImage = 'spotlight_add_image' . $num; ?><!-- store the combined name. -->
-            <input
-										class="button"
-										type="button"
-										id="<?php echo $this->get_field_id($tempAddImage); ?>"
-										value="Add Image Link" onclick="imageWidget.uploader( '<?php echo $this->id;?>', '<?php echo $id_prefix;?>', '<?php echo $tempImage;?>' ,'<?php echo $tempImagePreview; ?>'); return false;"/>
+            <div style="display:flex"> <!-- wrapper for preview and button -->
+              <!-- Image Preview -->
+  						<?php $tempImagePreview = 'spotlight_image_preview' . $num;?>
+              <div id="<?php echo $this->get_field_id($tempImagePreview)?>">
+  							<img  src="<?php echo esc_attr($$tempImage); ?>" width="50px" />
+  						</div>
+  						<!-- Add Image Button -->
+              <?php $tempAddImage = 'spotlight_add_image' . $num; ?><!-- store the combined name. -->
+              <input
+                      style="margin-left:auto; order:2;"
+  										class="button"
+  										type="button"
+  										id="<?php echo $this->get_field_id($tempAddImage); ?>"
+  										value="Add Image Link" onclick="imageWidget.uploader( '<?php echo $this->id;?>', '<?php echo $id_prefix;?>', '<?php echo $tempImage;?>' ,'<?php echo $tempImagePreview; ?>'); return false;"
+                      />
+            </div>
+
             <!-- Name input -->
             <p> <?php $tempName = 'spotlight_name' . $num; ?>
                 <label for="<?php echo esc_attr( $this->get_field_id( $tempName ) ); ?>"><?php esc_attr_e( 'Person full name:', 'text_domain' ); ?></label>
