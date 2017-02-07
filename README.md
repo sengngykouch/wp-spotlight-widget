@@ -2,8 +2,8 @@
 
 Contributors: *Sengngy Kouch (Western Connecticut State University)*  
 Donate link: *none*  
-Tested up to: *4.6.1*  
-Stable tag: *4.6.1*  
+Tested up to: *4.7.2*  
+Stable tag: *4.7.2*  
 License: *GPLv2 or later*  
 License URI: *http://www.gnu.org/licenses/gpl-2.0.html*  
 
@@ -22,6 +22,12 @@ This plugin adds a widget that allows publishers, developers, etc to add a custo
 
 - Allow 5 individuals for the spotlight.  
 - Randomly choose one of them to show on the page.  
-- Allow users to choose customed color for border and title background. 
+- Allow users to choose customed color for border and title background.
 - Add responsive design to the widget.
-- Improve overall look of the widget.  
+- Improve overall look of the widget. 
+
+**Version 1.1**
+
+- Add "Add Media" button.
+- Improve Security.
+- Improve overall look of the widget.
