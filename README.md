@@ -22,6 +22,19 @@ This plugin adds a widget that allows publishers, developers, etc to add a custo
 
 - Allow 5 individuals for the spotlight.  
 - Randomly choose one of them to show on the page.  
-- Allow users to choose customed color for border and title background. 
+- Allow users to choose customed color for border and title background.
 - Add responsive design to the widget.
-- Improve overall look of the widget.  
+- Improve overall look of the widget. 
+
+**Version 1.1**
+
+- Add "Add Media" button.
+- Improve Security.
+- Improve overall look of the widget.
+
+**Version 1.2**
+
+- Users now can add and delete button dynamically (Support up to 5 spotlights).
+- Remove custom color field.
+- Image is add automantically when adding a new spotlight.
+- Improve overall look for the form.
