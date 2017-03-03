@@ -18,9 +18,11 @@ class wp_spotlight_widget extends WP_Widget {
         $widget_ops = array(
             'classname' => 'wp_spotlight_widget',
             'discription' => 'spotlight widget for images and texts',
+
         );
         // Give widget name here
         parent::__construct('wp_spotlight_widget', 'WP Spotlight Widget', $widget_ops);
+
     }
 
     /**
@@ -38,6 +40,14 @@ class wp_spotlight_widget extends WP_Widget {
             $max_spotlight = 1;
 
 		    $title_background_color = ! empty( $instance['title_background_color'] ) ? $instance['title_background_color'] : '4678a1'; //4678a1 is a default color
+
+        /**============== Spotlight 0 =========================*/
+        $spotlight_image_link0 = ! empty( $instance['spotlight_image_link0'] ) ? $instance['spotlight_image_link0'] : '';
+        $spotlight_add_image0 = ! empty( $instance['spotlight_add_image0'] ) ? $instance['spotlight_add_image0'] : '';
+				$spotlight_image_preview0 = ! empty( $instance['spotlight_image_preview0'] ) ? $instance['spotlight_image_preview0'] : '';
+        $spotlight_name0 = ! empty( $instance['spotlight_name0'] ) ? $instance['spotlight_name0'] : '';
+        $spotlight_description0 = ! empty( $instance['spotlight_description0'] ) ? $instance['spotlight_description0'] : '';
+        $spotlight_link0 = ! empty( $instance['spotlight_link0'] ) ? $instance['spotlight_link0'] : '';
 
         /**============== Spotlight 1 =========================*/
         $spotlight_image_link1 = ! empty( $instance['spotlight_image_link1'] ) ? $instance['spotlight_image_link1'] : '';
@@ -71,13 +81,7 @@ class wp_spotlight_widget extends WP_Widget {
         $spotlight_description4 = ! empty( $instance['spotlight_description4'] ) ? $instance['spotlight_description4'] : '';
         $spotlight_link4 = ! empty( $instance['spotlight_link4'] ) ? $instance['spotlight_link4'] : '';
 
-        /**============== Spotlight 5 =========================*/
-        $spotlight_image_link5 = ! empty( $instance['spotlight_image_link5'] ) ? $instance['spotlight_image_link5'] : '';
-        $spotlight_add_image5 = ! empty( $instance['spotlight_add_image5'] ) ? $instance['spotlight_add_image5'] : '';
-				$spotlight_image_preview5 = ! empty( $instance['spotlight_image_preview5'] ) ? $instance['spotlight_image_preview5'] : '';
-        $spotlight_name5 = ! empty( $instance['spotlight_name5'] ) ? $instance['spotlight_name5'] : '';
-        $spotlight_description5 = ! empty( $instance['spotlight_description5'] ) ? $instance['spotlight_description5'] : '';
-        $spotlight_link5 = ! empty( $instance['spotlight_link5'] ) ? $instance['spotlight_link5'] : '';
+
 
         echo $args['before_widget'];
 
@@ -86,10 +90,16 @@ class wp_spotlight_widget extends WP_Widget {
         $spotlight_nameR;
         $spotlight_descriptionR;
         $spotlight_linkR;
-        //Randomly pick one of the spotlight individual 1 to 5, inclusive.
-        $random_spotlight = rand(1,$max_spotlight);
+        //Randomly pick one of the spotlight individual 0 to 4, inclusive.
+        $random_spotlight = rand(0,$max_spotlight-1);
 
         switch ($random_spotlight){
+            case 0:
+                $spotlight_image_linkR = $spotlight_image_link0;
+                $spotlight_linkR = $spotlight_link0;
+                $spotlight_nameR = $spotlight_name0;
+                $spotlight_descriptionR = $spotlight_description0;
+                break;
             case 1:
                 $spotlight_image_linkR = $spotlight_image_link1;
                 $spotlight_linkR = $spotlight_link1;
@@ -113,12 +123,6 @@ class wp_spotlight_widget extends WP_Widget {
                 $spotlight_linkR = $spotlight_link4;
                 $spotlight_nameR = $spotlight_name4;
                 $spotlight_descriptionR = $spotlight_description4;
-                break;
-            case 5:
-                $spotlight_image_linkR = $spotlight_image_link5;
-                $spotlight_linkR = $spotlight_link5;
-                $spotlight_nameR = $spotlight_name5;
-                $spotlight_descriptionR = $spotlight_description5;
                 break;
         }
 ?>
@@ -254,16 +258,24 @@ class wp_spotlight_widget extends WP_Widget {
     public function form( $instance ) {
         // outputs the options form on admin
         $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'title_background_color' => '',
+                                                            'spotlight_image_link0' => '', 'spotlight_add_image0' => '', 'spotlight_image_preview0' => '', 'spotlight_name0' => '', 'spotlight_description0' => '', 'spotlight_link0' => '',
                                                             'spotlight_image_link1' => '', 'spotlight_add_image1' => '', 'spotlight_image_preview1' => '', 'spotlight_name1' => '', 'spotlight_description1' => '', 'spotlight_link1' => '',
                                                             'spotlight_image_link2' => '', 'spotlight_add_image2' => '', 'spotlight_image_preview2' => '', 'spotlight_name2' => '', 'spotlight_description2' => '', 'spotlight_link2' => '',
                                                             'spotlight_image_link3' => '', 'spotlight_add_image3' => '', 'spotlight_image_preview3' => '', 'spotlight_name3' => '', 'spotlight_description3' => '', 'spotlight_link3' => '',
                                                             'spotlight_image_link4' => '', 'spotlight_add_image4' => '', 'spotlight_image_preview4' => '', 'spotlight_name4' => '', 'spotlight_description4' => '', 'spotlight_link4' => '',
-                                                            'spotlight_image_link5' => '', 'spotlight_add_image5' => '', 'spotlight_image_preview5' => '', 'spotlight_name5' => '', 'spotlight_description5' => '', 'spotlight_link5' => '',
                                                             'text' => '' ) );
 
         $title = sanitize_text_field( $instance['title'] );
         $max_spotlight  = isset( $instance['max_spotlight'] ) ? absint( $instance['max_spotlight'] ) : 1;
 		    $title_background_color = sanitize_text_field( $instance['title_background_color'] );
+
+        /**================== Spotlight 0 ==============*/
+        $spotlight_image_link0 = $instance['spotlight_image_link0'];
+        $spotlight_add_image0 = $instance['spotlight_add_image0'];
+				$spotlight_image_preview0 = $instance['spotlight_image_preview0'];
+        $spotlight_name0 = $instance['spotlight_name0'];
+        $spotlight_description0 = $instance['spotlight_description0'];
+        $spotlight_link0 = $instance['spotlight_link0'];
 
         /**================== Spotlight 1 ==============*/
         $spotlight_image_link1 = $instance['spotlight_image_link1'];
@@ -297,15 +309,9 @@ class wp_spotlight_widget extends WP_Widget {
         $spotlight_description4 = $instance['spotlight_description4'];
         $spotlight_link4 = $instance['spotlight_link4'];
 
-        /**================== Spotlight 5 ==============*/
-        $spotlight_image_link5 = $instance['spotlight_image_link5'];
-        $spotlight_add_image5 = $instance['spotlight_add_image5'];
-				$spotlight_image_preview5 = $instance['spotlight_image_preview5'];
-        $spotlight_name5 = $instance['spotlight_name5'];
-        $spotlight_description5 = $instance['spotlight_description5'];
-        $spotlight_link5 = $instance['spotlight_link5'];
 
-        $num = 1; //start spotlight from 1 to N.
+
+        $num = 0; //start spotlight from 1 to N.
 ?>
         <!--  Style sheet for Form -->
         <style>
@@ -357,7 +363,7 @@ class wp_spotlight_widget extends WP_Widget {
         $id_prefix = $this->get_field_id(''); //get the prefix of the element.
 
         //Display Spotlight input on the Widget Form from 1st Spotlight to max_spotlight, inclusive.
-        while ($num <= $max_spotlight) {
+        while ($num < $max_spotlight) {
 ?>
             <!-- Image input -->
             <p class="spotlight-para">Spotlight <?php echo $num; ?></p>
@@ -438,8 +444,8 @@ class wp_spotlight_widget extends WP_Widget {
       $instance['max_spotlight'] = (int) $new_instance['max_spotlight'];
 	    $instance['title_background_color'] = sanitize_text_field ($new_instance['title_background_color']);
 
-			$increment = 1;
-			while ( $increment <= 5 ){
+			$increment = 0;
+			while ( $increment < 5 ){
 				//increment variables
 				$increment_image_link = 'spotlight_image_link' . $increment;
 	      $increment_add_image = 'spotlight_add_image' . $increment;
@@ -470,6 +476,6 @@ add_action( 'widgets_init', function(){
 function register_admin_script(){
   wp_enqueue_media(); //requre for "Add media" button to work
   wp_enqueue_script('dwwp_image_uploader_js', plugin_dir_url(__FILE__). 'wp-spotlight-widget.js', array('jquery', 'media-upload'), '0.0.2', true );
-  wp_localize_script('wwp_image_uploader_js', 'customUploads', array('imageDate' => get_post_meta(get_the_ID(), 'custom_image_data', true)));
+  // wp_localize_script('wwp_image_uploader_js', 'customUploads', array('imageDate' => get_post_meta(get_the_ID(), 'custom_image_data', true)));
 }
 add_action('admin_enqueue_scripts', 'register_admin_script');
