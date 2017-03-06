@@ -353,7 +353,7 @@ class wp_spotlight_widget extends WP_Widget {
         $counter = 0;
         while($counter <  strlen($$tempHiddenSort)){
 
-          $num = intval($$tempHiddenSort[$counter]);//return value of "$counter" index.
+          $num = intval(substr($$tempHiddenSort, $counter, 1));//return value of "$counter" index.
           $tempImage = 'spotlight_image_link' . $num;
 
           if ($$tempImage != ''){
