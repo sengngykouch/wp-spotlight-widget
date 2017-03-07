@@ -353,7 +353,8 @@ class wp_spotlight_widget extends WP_Widget {
         $counter = 0;
         while($counter <  strlen($$tempHiddenSort)){
 
-          $num = intval(substr($$tempHiddenSort, $counter, 1));//return value of "$counter" index.
+          $num = intval(substr($$tempHiddenSort, $counter,1));//return value of "$counter" index.
+
           $tempImage = 'spotlight_image_link' . $num;
 
           if ($$tempImage != ''){
@@ -469,6 +470,7 @@ class wp_spotlight_widget extends WP_Widget {
                   for (i = 0; i < 5; i++){
                     if ( elementTracker[i] == 0){
                       currentIndex = i;
+					  //alert(currentIndex);
                       break;
                     }
                   }
@@ -519,6 +521,8 @@ class wp_spotlight_widget extends WP_Widget {
           };
 
           $(document).on('click', '#delete-spotlight', function() {
+
+
 
             $(this).parent().parent().remove(); //remove the field.
 
