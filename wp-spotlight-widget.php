@@ -354,7 +354,7 @@ class wp_spotlight_widget extends WP_Widget {
         while($counter <  strlen($$tempHiddenSort)){
 
           $num = intval(substr($$tempHiddenSort, $counter,1));//return value of "$counter" index.
-
+		  
           $tempImage = 'spotlight_image_link' . $num;
 
           if ($$tempImage != ''){
@@ -419,7 +419,7 @@ class wp_spotlight_widget extends WP_Widget {
            <br />
            <br/>
            <!-- Delete Spotlight Button -->
-           <input style="float:right;" id="delete-spotlight" name="<?php echo $tempDeleteName; ?>" type="button" value="Delete" class="button"/>
+           <input style="float:left; background: #ce4d4d; color: white;" id="delete-spotlight" name="<?php echo $tempDeleteName; ?>" type="button" value="Delete" class="button"/>
            <br />
            <br />
 
@@ -440,7 +440,7 @@ class wp_spotlight_widget extends WP_Widget {
                 class="button widefat"
                 type="button"
                 id="<?php echo $this->get_field_id('spotlight_add_row'); ?>"
-                value="Add Spotlight"
+                value="Add Spotlight Image"
                 onclick="repeater.uploader('<?php echo $this->id;?>', '<?php echo $id_prefix;?>'); return false;"
                 />
           <p></p><br/><br/>
@@ -490,7 +490,7 @@ class wp_spotlight_widget extends WP_Widget {
                       var attachment = frame.state().get('selection').first().toJSON();
 
                       //Append the each spotlight form
-                      $("#" + preIndexID + "spotlight_row_appendee").append('<div style="border: #e5e5e5 solid 1px; padding: 14px; margin-top:14px;"><p><input  class="widefat" id="<?php echo $this->get_field_id("spotlight_image_link'+currentIndex+'"); ?>"  name="<?php echo $this->get_field_name("spotlight_image_link'+currentIndex+'"); ?>" type="hidden" value="" /><img id="<?php echo $this->get_field_id("spotlight_image_preview'+currentIndex+'");?>" src="" width="100%" /><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_name'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Person full name:', 'text_domain' ); ?></label>   <input class="widefat" id="<?php echo $this->get_field_id("spotlight_name'+currentIndex+'"); ?>"  name="<?php echo $this->get_field_name("spotlight_name'+currentIndex+'"); ?>" type="text" /><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_description0'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Short description:', 'text_domain' ); ?></label> <textarea class="widefat" rows="2" cols="20" id="<?php echo $this->get_field_id("spotlight_description'+currentIndex+'"); ?>" name="<?php echo $this->get_field_name("spotlight_description'+currentIndex+'"); ?>"></textarea><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_link'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Link to person\'s page:', 'text_domain' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id("spotlight_link'+currentIndex+'" ); ?>" name="<?php echo $this->get_field_name("spotlight_link'+currentIndex+'" ); ?>" type="text" /><br /><br /><br /><input style="float:right;"id="delete-spotlight" name="deletespotlight_'+currentIndex+'" type="button" value="Delete" class="button"/><br /><br /> </p></div>');
+                      $("#" + preIndexID + "spotlight_row_appendee").append('<div style="border: #e5e5e5 solid 1px; padding: 14px; margin-top:14px;"><p><input  class="widefat" id="<?php echo $this->get_field_id("spotlight_image_link'+currentIndex+'"); ?>"  name="<?php echo $this->get_field_name("spotlight_image_link'+currentIndex+'"); ?>" type="hidden" value="" /><img id="<?php echo $this->get_field_id("spotlight_image_preview'+currentIndex+'");?>" src="" width="100%" /><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_name'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Person full name:', 'text_domain' ); ?></label>   <input class="widefat" id="<?php echo $this->get_field_id("spotlight_name'+currentIndex+'"); ?>"  name="<?php echo $this->get_field_name("spotlight_name'+currentIndex+'"); ?>" type="text" /><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_description0'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Short description:', 'text_domain' ); ?></label> <textarea class="widefat" rows="2" cols="20" id="<?php echo $this->get_field_id("spotlight_description'+currentIndex+'"); ?>" name="<?php echo $this->get_field_name("spotlight_description'+currentIndex+'"); ?>"></textarea><br /><br /><label for="<?php echo esc_attr( $this->get_field_id( "spotlight_link'+currentIndex+'" ) ); ?>"><?php esc_attr_e( 'Link to person\'s page:', 'text_domain' ); ?></label> <input class="widefat" id="<?php echo $this->get_field_id("spotlight_link'+currentIndex+'" ); ?>" name="<?php echo $this->get_field_name("spotlight_link'+currentIndex+'" ); ?>" type="text" /><br /><br /><br /><input style="float:left; background: #ce4d4d; color: white;"id="delete-spotlight" name="deletespotlight_'+currentIndex+'" type="button" value="Delete" class="button"/><br /><br /> </p></div>');
 
                       //check element as active, 1 = true, 0 = false;
                       elementTracker[currentIndex] = 1;
@@ -522,7 +522,7 @@ class wp_spotlight_widget extends WP_Widget {
 
           $(document).on('click', '#delete-spotlight', function() {
 
-
+           
 
             $(this).parent().parent().remove(); //remove the field.
 
