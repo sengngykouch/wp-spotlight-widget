@@ -31,3 +31,10 @@ This plugin adds a widget that allows publishers, developers, etc to add a custo
 - Add "Add Media" button.
 - Improve Security.
 - Improve overall look of the widget.
+
+**Version 1.2**
+
+- Users now can add and delete button dynamically (Support up to 5 spotlights).
+- Remove custom color field.
+- Image is add automantically when adding a new spotlight.
+- Improve overall look for the form.
